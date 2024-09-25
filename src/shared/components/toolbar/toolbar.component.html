@@ -1,0 +1,21 @@
+<div class="app-container">
+  <div class="c-toolbar">
+    <div class="pv-toolbar">
+      <div class="toolbar-start">
+        <img src="../../assets/logo.png" width="20%" />
+        <a (click)="navigateToMainPage()" style="color: white; text-decoration: none;">
+          <h1 style="padding-left: 0.5rem;">Saifu</h1>
+        </a>
+      </div>
+      <div class="toolbar-end">
+        <button class="hamburger-button" (click)="toggleSidebar()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <app-sidebar *ngIf="isSidebarVisible"></app-sidebar>
+</div>
