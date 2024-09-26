@@ -7,13 +7,13 @@ import { Router, RouterLink } from "@angular/router";
 import { MatButton } from "@angular/material/button";
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "../../../shared/services/auth.service";
-import { HttpClientModule } from '@angular/common/http';
+import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-
+    ToolbarComponent,
     MatCard,
     MatCardContent,
     MatCardTitle,
@@ -24,8 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     RouterLink,
     MatButton,
     ReactiveFormsModule,
-    HttpClientModule  // Asegúrate de incluir HttpClientModule
+
   ],
+
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
