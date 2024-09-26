@@ -10,6 +10,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatToolbar} from "@angular/material/toolbar";
+import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.component";
 
 @Component({
   selector: 'app-signup',
@@ -25,7 +26,8 @@ import {MatToolbar} from "@angular/material/toolbar";
     RouterLink,
     MatInput,
     MatButton,
-    MatToolbar
+    MatToolbar,
+    ToolbarComponent
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
