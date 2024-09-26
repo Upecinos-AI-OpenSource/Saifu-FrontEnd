@@ -5,6 +5,10 @@ import {TasaCrediticiaComponent} from "./public/pages/tasa-crediticia/tasa-credi
 import {SignupComponent} from "./authentication/components/signup/signup.component";
 import {LoginComponent} from "./authentication/components/login/login.component";
 import {NgModule} from "@angular/core";
+import {AddTransactionComponent} from "../saifu/add-transaction/add-transaction.component";
+import {RegisterDataComponent} from "../saifu/register-data/register-data.component";
+import {RegisterTransactionComponent} from "../saifu/register-transaction/register-transaction.component";
+
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -13,7 +17,9 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'educacion-financiera', component: EducacionFinancieraComponent },
   { path: 'tasa-crediticia', component: TasaCrediticiaComponent }
-
+  { path: 'add-transaction', component: AddTransactionComponent },
+  { path: 'register-data', component: RegisterDataComponent },
+  { path: 'register-transaction', component: RegisterTransactionComponent }
 
 ];
 
