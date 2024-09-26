@@ -8,7 +8,7 @@ import {NgModule} from "@angular/core";
 import {AddTransactionComponent} from "../saifu/add-transaction/add-transaction.component";
 import {RegisterDataComponent} from "../saifu/register-data/register-data.component";
 import {RegisterTransactionComponent} from "../saifu/register-transaction/register-transaction.component";
-
+import {AppRecomendationComponent} from "../saifu/app-recomendation/app-recomendation.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -16,10 +16,11 @@ export const routes: Routes = [
   {path: '',redirectTo: 'login', pathMatch: 'full'},
   { path: '', component: HomeComponent },
   { path: 'educacion-financiera', component: EducacionFinancieraComponent },
-  { path: 'tasa-crediticia', component: TasaCrediticiaComponent }
+  { path: 'tasa-crediticia', component: TasaCrediticiaComponent },
   { path: 'add-transaction', component: AddTransactionComponent },
   { path: 'register-data', component: RegisterDataComponent },
-  { path: 'register-transaction', component: RegisterTransactionComponent }
+  { path: 'register-transaction', component: RegisterTransactionComponent },
+  { path: 'app-recomendation', component: AppRecomendationComponent }
 
 ];
 
