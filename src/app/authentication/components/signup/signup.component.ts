@@ -11,6 +11,7 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatToolbar} from "@angular/material/toolbar";
 import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.component";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
   selector: 'app-signup',
@@ -27,7 +28,9 @@ import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.co
     MatInput,
     MatButton,
     MatToolbar,
-    ToolbarComponent
+    ToolbarComponent,
+    MatSelect,
+    MatOption
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
@@ -40,18 +43,19 @@ export class SignupComponent {
               private router: Router) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
-      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      roles: [['ROLE_USER'], Validators.required] // Valor por defecto y validación
     });
+
+
+
   }
 
   get username() {
     return this.registerForm.controls['username'];
   }
 
-  get email() {
-    return this.registerForm.controls['email'];
-  }
+
 
   get password() {
     return this.registerForm.controls['password'];
@@ -59,13 +63,27 @@ export class SignupComponent {
 
   submitDetails() {
     const postData = { ...this.registerForm.value };
+
+    // Asegurar que roles sea un array válido
+    postData.roles = Array.isArray(postData.roles) ? postData.roles : [postData.roles || 'ROLE_USER'];
+
     this.authService.registerUser(postData as User).subscribe(
       response => {
-        console.log(response);
-        alert('User registered successfully');
-        this.router.navigate(['/login'])
+        console.log('Usuario registrado:', response);
+        alert('Usuario registrado correctamente');
+        this.router.navigate(['/home']);
+      },
+      error => {
+        console.error('Error al registrar usuario:', error);
+        alert('Hubo un error al registrar el usuario. Intente nuevamente.');
       }
-    )
+    );
   }
+
+
+
+
+
+
 
 }

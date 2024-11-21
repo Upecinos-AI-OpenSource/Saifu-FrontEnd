@@ -5,9 +5,9 @@ import { MatIcon } from "@angular/material/icon";
 import { MatInput } from "@angular/material/input";
 import { Router, RouterLink } from "@angular/router";
 import { MatButton } from "@angular/material/button";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ToolbarComponent } from "../../../../shared/components/toolbar/toolbar.component";
 import { AuthService } from "../../../shared/services/auth.service";
-import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.component";
 
 @Component({
   selector: 'app-login',
@@ -24,15 +24,13 @@ import {ToolbarComponent} from "../../../../shared/components/toolbar/toolbar.co
     RouterLink,
     MatButton,
     ReactiveFormsModule,
-
   ],
-
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
-  loginForm;
+  loginForm: FormGroup;
+  errorMessage: string | null = null; // Para mostrar mensajes de error
 
   constructor(
     private fb: FormBuilder,
@@ -40,30 +38,42 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]], // Cambiado de email a username
       password: ['', Validators.required]
     });
+
   }
 
-  get email() {
-    return this.loginForm.controls['email'];
+  get username() {
+    return this.loginForm.controls['username'];
   }
 
   get password() {
     return this.loginForm.controls['password'];
   }
 
+
   loginUser() {
-    const { email, password } = this.loginForm.value;
-    this.authService.getUserByEmail(email as string).subscribe(
-      response => {
-        if (response.length > 0 && response[0].password === password) {
-          sessionStorage.setItem('email', email as string);
-          this.router.navigate(['/home']);
-        } else {
-          alert('Invalid email or password');
-        }
+    if (this.loginForm.invalid) {
+      alert('Por favor, completa todos los campos correctamente.');
+      return;
+    }
+
+    const { username, password } = this.loginForm.value;
+
+    this.authService.loginUser({ username, password }).subscribe({
+      next: (response) => {
+        console.log('Respuesta del servidor:', response);
+        sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('username', response.username);
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        console.error('Error al iniciar sesión:', error);
+        alert('Credenciales inválidas. Intenta de nuevo.');
       }
-    );
+    });
   }
+
+
 }
